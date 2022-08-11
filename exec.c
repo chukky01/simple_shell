@@ -1,20 +1,28 @@
-#include <stdio.h>
-#include <unistd.h>
+#include "main.h"
 
 /**
- * main - execve example
- *
- * Return: Always 0.
+ * execution - executes commands entered by users
+ *@cp: command
+ *@cmd:vector array of pointers to commands
+ * Return: 0
  */
-int main(void)
+void execution(char *cp, char **cmd)
 {
-    char *argv[] = {"/bin/ls", "-l", "/usr/", NULL};
+	pid_t child_pid;
+	int status;
+	char **env = environ;
 
-    printf("Before execve\n");
-    if (execve(argv[0], argv, NULL) == -1)
-    {
-        perror("Error:");
-    }
-    printf("After execve\n");
-    return (0);
+	child_pid = fork();
+	if (child_pid < 0)
+		perror(cp);
+	if (child_pid == 0)
+	{
+		execve(cp, cmd, env);
+		perror(cp);
+		free(cp);
+		free_buffers(cmd);
+		exit(98);
+	}
+	else
+		wait(&status);
 }

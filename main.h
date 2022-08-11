@@ -10,9 +10,6 @@ extern char **environ;
 #define BUFSIZE 1024
 #define DELIM " \t\r\n\a"
 #define PRINTER(c) (write(STDOUT_FILENO, c, _strlen(c)))
-
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -47,7 +44,7 @@ char *_strchr(char *s, char c);
 int _strncmp(const char *s1, const char *s2, size_t n);
 char *_strdup(char *str);
 
-/**###### MEMORIE  MANGMENT ####*/
+/**###### MEMORY  MANAGMENT ####*/
 
 void free_env(char **env);
 void *fill_an_array(void *a, int el, unsigned int len);
